@@ -2,7 +2,7 @@
 {{extend 'layout.html'}}
 <!-- Used by custom part of the link to show the form -->
 {{if 'form' in globals():}}
-	<!-- Handle errors here -->
+	<!-- Handle errors in form over here -->
 	<ul>
 		{{for error in form.errors:}}
 			<li>Error in field {{=error}}</li>
@@ -14,7 +14,13 @@
 <!--  The hello message is shown here -->
 {{if 'message' in globals():}}
 	<h3>{{=message}}</h3>
+	<!-- This is how I link to other URL within the app -->
 	<ul>
+		<!-- URL('index') will link to hello/default/index.html
+		Here hello is the app name, default is the controller name
+		and index is the name of the view. This default behavior
+		kicks in when we don't explicitly specify the app name
+		and controller name. -->
 		<li>{{=A(T("Default"),_href=URL('index'))}}</li>
 		<li>{{=A(T("Simple"),_href=URL('simple'))}}</li>
 		<li> {{=A(T("Custom"),_href=URL('custom'))}}</li>
