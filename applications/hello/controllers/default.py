@@ -21,6 +21,32 @@ def index():
     response.flash = T("Welcome to web2py!")
     return dict(message=T('Hello World'))
 
+def simple():
+    '''
+    Simple hello world. Here we see how to change the default hello
+    world message, and reuse a view
+    '''
+    response.view = 'default/index.html'
+    return dict(message=T('Simple Hello World!'))
+
+def custom():
+    '''
+    Custom view will create a form and let you provide a 
+    adapted hello.
+    '''
+    response.view = 'default/index.html'
+    outdict = dict(message = T(''))
+    form=FORM('Name:', 
+        INPUT(_name='name',requires=IS_NOT_EMPTY()), 
+        INPUT(_type='submit',_class='btn'),
+        hideerror = True) # this will suppress the default error handling                                
+    if form.accepts(request,session): # When a form is submitted
+        outdict['message'] = "Hello "+request.vars['name']
+    elif form.errors: # form is submitted and has errors
+        response.flash = 'form has errors'
+    else: # this is executed the very first time
+        outdict['form']=form
+    return outdict
 
 def user():
     """
